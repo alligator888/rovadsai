@@ -1,1 +1,1 @@
-worker: python rovads.py
+web: python rovads.py
