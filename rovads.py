@@ -1,5 +1,6 @@
 from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup
-from telegram.ext import ApplicationBuilder, CommandHandler, ContextTypes
+from telegram.ext import ApplicationBuilder, CommandHandler, ContextTypes 
+import os
 
 TOKEN = '7693613629:AAFbQ61u76LjprsLw6jiMli6otOm5p41UYc'  # Bot tokenınızı daxil edin
 
@@ -29,8 +30,17 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
             caption=caption,
             reply_markup=reply_markup
         )
-if __name__ == '__main__':
+if __name__ == "__main__":
     app = ApplicationBuilder().token(TOKEN).build()
-    app.add_handler(CommandHandler('start', start))
-    print("Bot işləyir...")
-    app.run_polling()
+
+    app.add_handler(CommandHandler("start", start))
+
+    PORT = int(os.environ.get("PORT", 8000))
+    WEBHOOK_URL = f"https://worker.up.railway.app/{TOKEN}"  # Railway-dəki URL-ni buraya yaz
+
+    app.run_webhook(
+        listen="0.0.0.0",
+        port=PORT,
+        url_path=TOKEN,
+        webhook_url=WEBHOOK_URL
+    )
