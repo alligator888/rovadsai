@@ -19,7 +19,7 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     "Vaxt təyin etmə funksiyası – postu avtomatik olaraq təyin etdiyin vaxtda paylaşır."
 )
 
-    mp4_path = 'ROVADS.MP4'  # MP4 fayl yolu
+    mp4_path = 'content.mp4'  # MP4 fayl yolu
 
     # MP4 animasiyasını göndər
     with open(mp4_path, 'rb') as video:
@@ -29,7 +29,6 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
             caption=caption,
             reply_markup=reply_markup
         )
-
 if __name__ == '__main__':
     app = ApplicationBuilder().token(TOKEN).build()
     app.add_handler(CommandHandler('start', start))
